@@ -72,4 +72,54 @@ class LinkedList:
     newNode = Node(data)
     newNode.nextNode = self.head
     self.head = newNode
+
+  def search(self, key):
+    '''
+    Searches the linked list for the first node's data that matches the given key
+    returns the node or 'None' if not found
+    O(n) time
+    '''
+
+    current = self.head
+
+    while current:
+      if current.data == key:
+        return current
+      else:
+        current = current.nextNode
+
+    return None
+  
+  def insert(self, data, index: int) -> None:
+    '''
+    Inserts a new node containing the given data at a specified (zero based) index : starting from the head
+    Throws an error if index is negative or out of range
+    O(n) time
+    '''
+    
+    if index < 0:
+      raise IndexError('Index cannot be negative!')
+
+    elif index == 0:
+      # newNode = Node(data)
+      # newNode.nextNode = self.head
+      # self.head = newNode
+      self.prepend(data)
+    
+    elif index > 0:
+      current = self.head
+      iterations = 1
+
+      while current:
+        if iterations == index:
+          newNode = Node(data)
+          newNode.nextNode = current.nextNode
+          current.nextNode = newNode
+          return None
+
+        iterations += 1
+        current = current.nextNode
+
+      else:
+        raise IndexError('Index is out of range!')
     
