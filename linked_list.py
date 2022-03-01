@@ -46,6 +46,7 @@ class LinkedList:
   
   def isEmpty(self) -> bool:
     '''
+    Checks if list is empty and returns a boolean
     O(1) time
     '''
     return self.head == None
@@ -73,6 +74,7 @@ class LinkedList:
     newNode.nextNode = self.head
     self.head = newNode
 
+
   def search(self, key):
     '''
     Searches the linked list for the first node's data that matches the given key
@@ -89,14 +91,15 @@ class LinkedList:
         current = current.nextNode
 
     return None
+
   
   def insert(self, data, index: int) -> None:
     '''
-    Inserts a new node containing the given data at a specified (zero based) index : starting from the head
+    Inserts a new node containing the given data at a specified (zero based) index : starting at the head
     Throws an error if index is negative or out of range
     O(n) time
     '''
-    
+
     if index < 0:
       raise IndexError('Index cannot be negative!')
 
@@ -122,4 +125,59 @@ class LinkedList:
 
       else:
         raise IndexError('Index is out of range!')
+
+  
+  def remove(self, key) -> Node:
+    '''
+    Removes a node that contains same data as the key provided by traversing the linked list
+    Returns the deleted Node or raises an exception if a Node's data with the given key is not found
+    O(n) time
+    '''
     
+    prev = None
+    current = self.head
+
+    # traverse the list and compare Node's data to key
+    while current:
+      if current.data == key:
+        prev.nextNode = current.nextNode
+        return current
+
+      prev = current
+      current = current.nextNode
+
+    # raise an exception if loop ends and key is not found
+    else:
+      raise Exception('Node containing given data not found!')
+  
+
+  def removeByIndex(self, index: int) -> Node:
+    '''
+    Removes a node at a specified (zero based) index : starting at the head
+    Returns the removed Node or raises an exception if index is negative or out of range
+    O(n) time
+    '''
+
+    prev = None
+    current = self.head
+    position = 0
+
+    if index < 0:
+      raise IndexError('Index cannot be negative!')
+    
+    elif index == 0:
+      self.head = current.nextNode
+      return current
+
+    while current:
+      if position == index:
+        prev.nextNode = current.nextNode
+        return current
+
+      prev = current
+      current = current.nextNode
+      position += 1
+      pass
+
+    else:
+      raise IndexError('Index out of range!')
